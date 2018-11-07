@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "pretty": true,
+    "skipLibCheck": true,
+    "module": "commonjs",
+    "target": "es6",
+    "jsx": "react",
+    "typeRoots": [
+      "./node_modules/@types/",
+      "./@types/"
+    ],
+  },
+  "include": [
+    "./src/",
+    "./examples/",
+    "./@types/"
+  ]
+}

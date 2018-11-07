@@ -1,0 +1,49 @@
+{
+  "name": "existential-proxy",
+  "version": "0.0.0",
+  "description": "Type safe, functional, immutable, null propagation / existential property access using ES6 proxies",
+  "main": "dist/index.ts",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "prettier": "prettier --write '@(src|examples|types)/**/*.ts?(x)'",
+    "lint": "tslint --project tsconfig.json '@(src|examples|types)/**/*.ts?(x)'",
+    "type-check": "tsc --noEmit --project tsconfig.json",
+    "test": "npm run type-check && npm run lint"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakesidsmith/existential-proxy.git"
+  },
+  "keywords": [
+    "type-safe",
+    "type",
+    "types",
+    "property",
+    "access",
+    "get",
+    "getin",
+    "existential",
+    "null",
+    "propagation",
+    "functional",
+    "immutable"
+  ],
+  "author": "Jake 'Sid' Smith",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jakesidsmith/existential-proxy/issues"
+  },
+  "homepage": "https://github.com/jakesidsmith/existential-proxy#readme",
+  "dependencies": {
+    "typescript": "^3.1.6"
+  },
+  "devDependencies": {
+    "prettier": "^1.15.1",
+    "tslint": "^5.11.0",
+    "tslint-config-prettier": "^1.15.0",
+    "tslint-eslint-rules": "^5.4.0",
+    "tslint-react": "^3.6.0"
+  }
+}
