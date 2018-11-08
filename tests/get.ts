@@ -21,9 +21,9 @@ describe('get', () => {
 
   const obj3: FooBar = {
     foo: {
-      bar: null
-    }
-  }
+      bar: null,
+    },
+  };
 
   it('should return the requested value when it exists', () => {
     const root = get(obj1, proxy => proxy);
@@ -50,26 +50,26 @@ describe('get', () => {
   });
 
   it('should return the default value when the value does not exist', () => {
-    const root = get(obj2, proxy => proxy, {foo: null});
-    const foo = get(obj2, proxy => proxy.foo, {bar: null});
-    const bar = get(obj2, proxy => proxy.foo.bar, {baz: 'def'});
+    const root = get(obj2, proxy => proxy, { foo: null });
+    const foo = get(obj2, proxy => proxy.foo, { bar: null });
+    const bar = get(obj2, proxy => proxy.foo.bar, { baz: 'def' });
     const baz = get(obj2, proxy => proxy.foo.bar.baz, 'def');
 
     expect(root).toEqual({});
-    expect(foo).toEqual({bar: null});
-    expect(bar).toEqual({baz: 'def'});
+    expect(foo).toEqual({ bar: null });
+    expect(bar).toEqual({ baz: 'def' });
     expect(baz).toBe('def');
   });
 
   it('should return the default value when the value is null', () => {
-    const root = get(obj3, proxy => proxy, {foo: null});
-    const foo = get(obj3, proxy => proxy.foo, {bar: {baz: 'def'}});
-    const bar = get(obj3, proxy => proxy.foo.bar, {baz: 'def'});
+    const root = get(obj3, proxy => proxy, { foo: null });
+    const foo = get(obj3, proxy => proxy.foo, { bar: { baz: 'def' } });
+    const bar = get(obj3, proxy => proxy.foo.bar, { baz: 'def' });
     const baz = get(obj3, proxy => proxy.foo.bar.baz, 'def');
 
-    expect(root).toEqual({foo: {bar: null}});
-    expect(foo).toEqual({bar: null});
-    expect(bar).toEqual({baz: 'def'});
+    expect(root).toEqual({ foo: { bar: null } });
+    expect(foo).toEqual({ bar: null });
+    expect(bar).toEqual({ baz: 'def' });
     expect(baz).toBe('def');
   });
 });
