@@ -52,7 +52,7 @@
   },
   "jest": {
     "collectCoverageFrom": [
-      "src/ts/**/*.(js|jsx|ts|tsx)"
+      "src/**/*.(js|jsx|ts|tsx)"
     ],
     "setupFiles": [
       "<rootDir>/tests/helpers/setup.ts"
