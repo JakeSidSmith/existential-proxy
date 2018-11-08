@@ -28,11 +28,15 @@ export function get<T extends object, R, D extends R>(
   callback: (input: WithProxy<T>) => R & AccessProxy<R>,
   defaultValue?: D
 ): R | D {
-  let currentValue: any;
+  let currentValue: any = input;
 
   const handlers = {
     get(value: T, key: keyof T): object {
       currentValue = value[key];
+
+      if (currentValue && typeof currentValue === 'object') {
+        return new Proxy(currentValue, handlers);
+      }
 
       return new Proxy({}, handlers);
     },
