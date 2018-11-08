@@ -14,7 +14,7 @@ export type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
   ? WithProxyArray<V>
   : T & AccessProxy<T>;
 
-export function get<T extends object, R, D extends R>(
+export function get<T extends object, R>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>
 ): R;
