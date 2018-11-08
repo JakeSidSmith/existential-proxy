@@ -2,11 +2,11 @@ import { get } from '../src';
 
 describe('get', () => {
   interface FooBar {
-    foo: {
-      bar?: {
+    foo?: {
+      bar: {
         baz: string;
-      };
-    } | null;
+      } | null;
+    };
   }
 
   const obj1: FooBar = {
@@ -17,7 +17,9 @@ describe('get', () => {
     },
   };
 
-  it('should return the requested value', () => {
+  const obj2: FooBar = {};
+
+  it('should return the requested value when it exists', () => {
     const root = get(obj1, proxy => proxy);
     const foo1 = get(obj1, proxy => proxy.foo);
     const bar1 = get(obj1, proxy => proxy.foo.bar);
@@ -27,5 +29,17 @@ describe('get', () => {
     expect(foo1).toEqual({ bar: { baz: 'baz' } });
     expect(bar1).toEqual({ baz: 'baz' });
     expect(baz1).toBe('baz');
+  });
+
+  it('should return undefined if the value does not exist', () => {
+    const root = get(obj2, proxy => proxy);
+    const foo2 = get(obj2, proxy => proxy.foo);
+    const bar2 = get(obj2, proxy => proxy.foo.bar);
+    const baz2 = get(obj2, proxy => proxy.foo.bar.baz);
+
+    expect(root).toEqual({});
+    expect(foo2).toBe(undefined);
+    expect(bar2).toBe(undefined);
+    expect(baz2).toBe(undefined);
   });
 });
