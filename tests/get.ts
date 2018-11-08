@@ -19,6 +19,12 @@ describe('get', () => {
 
   const obj2: FooBar = {};
 
+  const obj3: FooBar = {
+    foo: {
+      bar: null
+    }
+  }
+
   it('should return the requested value when it exists', () => {
     const root = get(obj1, proxy => proxy);
     const foo = get(obj1, proxy => proxy.foo);
@@ -54,5 +60,16 @@ describe('get', () => {
     expect(bar).toEqual({baz: 'def'});
     expect(baz).toBe('def');
   });
+
+  it('should return the default value when the value is null', () => {
+    const root = get(obj3, proxy => proxy, {foo: null});
+    const foo = get(obj3, proxy => proxy.foo, {bar: {baz: 'def'}});
+    const bar = get(obj3, proxy => proxy.foo.bar, {baz: 'def'});
+    const baz = get(obj3, proxy => proxy.foo.bar.baz, 'def');
+
+    expect(root).toEqual({foo: {bar: null}});
+    expect(foo).toEqual({bar: null});
+    expect(bar).toEqual({baz: 'def'});
+    expect(baz).toBe('def');
   });
 });
