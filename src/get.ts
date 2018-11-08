@@ -27,7 +27,7 @@ export function get<T extends object, R, D extends R>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue?: D
-): R | D {
+): R {
   let currentValue: any = input;
 
   const handlers = {
