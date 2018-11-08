@@ -16,16 +16,16 @@ export type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
 
 export function get<T extends object, R, D extends R>(
   input: T,
-  callback: (input: WithProxy<T>) => R & AccessProxy<R>
+  callback: (input: WithProxy<T>) => WithProxy<R>
 ): R;
 export function get<T extends object, R, D extends R>(
   input: T,
-  callback: (input: WithProxy<T>) => R & AccessProxy<R>,
+  callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue: D
 ): R extends null | undefined ? D : R;
 export function get<T extends object, R, D extends R>(
   input: T,
-  callback: (input: WithProxy<T>) => R & AccessProxy<R>,
+  callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue?: D
 ): R | D {
   let currentValue: any = input;
