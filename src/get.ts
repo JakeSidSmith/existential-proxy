@@ -1,14 +1,14 @@
-const MAGIC_SYMBOL = Symbol('Magic proxy symbol');
+const MAGIC_PROXY_SYMBOL = Symbol('Magic proxy symbol');
 
-interface AccessProxy<T> {
-  [MAGIC_SYMBOL]: T;
+export interface AccessProxy<T> {
+  [MAGIC_PROXY_SYMBOL]: T;
 }
 
-interface WithProxyArray<T> extends ReadonlyArray<WithProxy<T>> {}
+export interface WithProxyArray<T> extends ReadonlyArray<WithProxy<T>> {}
 
-type WithProxyObject<T> = { [P in keyof T]-?: WithProxy<T[P]> };
+export type WithProxyObject<T> = { [P in keyof T]-?: WithProxy<T[P]> };
 
-type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
+export type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
   ? WithProxyObject<S> & AccessProxy<T>
   : S extends ReadonlyArray<infer V> & AccessProxy<T>
   ? WithProxyArray<V>
