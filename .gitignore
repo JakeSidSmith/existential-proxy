@@ -2,6 +2,7 @@
 /coverage/*
 /build/*
 /dist/*
+/.vscode/*
 
 /examples/build/*
 
