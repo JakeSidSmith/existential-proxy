@@ -23,7 +23,7 @@ export function get<T extends object, R, D extends Exclude<R, undefined>>(
   callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue: D
 ): Exclude<R, undefined | null> | D;
-export function get<T extends object, R, D extends R>(
+export function get<T extends object, R, D extends Exclude<R, undefined>>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue?: D
