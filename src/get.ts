@@ -9,9 +9,9 @@ export interface WithProxyArray<T> extends ReadonlyArray<WithProxy<T>> {}
 export type WithProxyObject<T> = { [P in keyof T]-?: WithProxy<T[P]> };
 
 export type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
-  ? WithProxyObject<S> & AccessProxy<T>
-  : S extends ReadonlyArray<infer V> & AccessProxy<T>
-  ? WithProxyArray<V>
+  ? WithProxyObject<T> & AccessProxy<T>
+  : S extends ReadonlyArray<infer V>
+  ? WithProxyArray<V> & AccessProxy<T>
   : T & AccessProxy<T>;
 
 export function get<T extends object, R>(
