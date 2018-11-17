@@ -4,15 +4,15 @@ export interface AccessProxy<T> {
   [MAGIC_PROXY_SYMBOL]: T;
 }
 
-export interface WithProxyArray<T> extends ReadonlyArray<WithProxy<T>> {}
+export interface WithProxyArray<T, U> extends ReadonlyArray<WithProxy<T | U>> {}
 
-export type WithProxyObject<T> = { [P in keyof T]-?: WithProxy<T[P]> };
+export type WithProxyObject<T, U> = { [P in keyof T]-?: WithProxy<T[P] | U> };
 
-export type WithProxy<T, S = Exclude<T, undefined | null>> = S extends object
-  ? WithProxyObject<T> & AccessProxy<T>
+export type WithProxy<T, U = T extends undefined | null ? undefined : never, S = Exclude<T, undefined | null>> = S extends object
+  ? WithProxyObject<T, U> & AccessProxy<T>
   : S extends ReadonlyArray<infer V>
-  ? WithProxyArray<V> & AccessProxy<T>
-  : T & AccessProxy<T>;
+  ? WithProxyArray<V, U> & AccessProxy<T>
+  : U | T & AccessProxy<T>;
 
 export function get<T extends object, R, D extends undefined | never | void>(
   input: T,
