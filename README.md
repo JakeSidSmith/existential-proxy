@@ -1,5 +1,7 @@
 # existential-proxy
 
+[![CircleCI](https://circleci.com/gh/JakeSidSmith/existential-proxy.svg?style=svg)](https://circleci.com/gh/JakeSidSmith/existential-proxy)
+
 **Type safe existential property access using ES6 proxies**
 
 ## About
