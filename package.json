@@ -2,11 +2,14 @@
   "name": "existential-proxy",
   "version": "0.0.0",
   "description": "Type safe existential property access using ES6 proxies",
-  "main": "dist/index.ts",
+  "main": "dist/index.js",
+  "module": "es/index.js",
+  "types": "es/index.d.ts",
   "directories": {
     "example": "examples"
   },
   "scripts": {
+    "dist": "./scripts/dist",
     "prettier": "prettier --write '@(src|examples|tests|types)/**/*.ts?(x)'",
     "lint": "tslint --project tsconfig.json '@(src|examples|tests|types)/**/*.ts?(x)'",
     "type-check": "tsc --noEmit --project tsconfig.json",
@@ -41,7 +44,12 @@
     "typescript": "^3.1.6"
   },
   "devDependencies": {
+    "@babel/cli": "^7.1.5",
+    "@babel/core": "^7.1.6",
+    "@babel/plugin-transform-runtime": "^7.1.0",
+    "@babel/preset-env": "^7.1.6",
     "@types/jest": "^23.3.9",
+    "babel-preset-minify": "^0.5.0",
     "jest": "^23.6.0",
     "prettier": "^1.15.1",
     "ts-jest": "^23.10.4",

@@ -1,0 +1,18 @@
+#! /usr/bin/env bash
+
+set -e
+
+rm -rf es/
+rm -rf dist/
+
+mkdir -p es
+mkdir -p dist
+
+tsc --project './tsconfig.es.json'
+echo "Built es modules and types"
+
+babel es/ --out-file dist/index.js --source-maps
+echo "Built polyfilled file"
+
+babel es/ --out-file dist/index.min.js --source-maps --presets=minify
+echo "Built minified file"
