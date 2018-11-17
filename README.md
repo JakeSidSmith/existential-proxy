@@ -22,3 +22,44 @@ Install existential-proxy with NPM (`-S` will automatically add this to your `pa
 npm i existential-proxy -S
 ```
 
+## Usage
+
+### Get
+
+The `get` function takes 3 arguments:
+
+1. The object from which you wish to retrieve a value
+2. A callback that will be passed a proxy to this object
+3. An optional default value
+
+Simply import the library and begin accessing the keys that you want via the proxy.
+
+```typescript
+import * as ep from 'existential-proxy';
+
+// Here's our example type
+interface ABC {
+  a: {
+    b?: {
+      c: string
+    }
+  } | null;
+}
+
+// Here's our example object
+const abc: ABC = {
+  a: {} // Note that the b key does not exist
+};
+
+// Access without defaults
+ep.get(abc, (proxy) => proxy); // ABC
+ep.get(abc, (proxy) => proxy.a); // { b?: { c: string; } } | null
+ep.get(abc, (proxy) => proxy.a.b); // { c: string; } | undefined
+ep.get(abc, (proxy) => proxy.a.b.c); // string | undefined
+
+// Access with defaults
+ep.get(abc, (proxy) => proxy, 'whatever'); // ABC
+ep.get(abc, (proxy) => proxy.a, { b: { c: 'hello' } }); // { b?: { c: string; } } | { b: { c: string; } }
+ep.get(abc, (proxy) => proxy.a.b, { c: 'hello' }); // { c: string; }
+ep.get(abc, (proxy) => proxy.a.b.c, 'hello'); // string
+```
