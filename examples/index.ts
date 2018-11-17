@@ -2,18 +2,18 @@
 
 import * as ep from '../src';
 
-interface FooBar {
-  foo: {
-    bar?: {
-      baz: string;
+interface ABC {
+  a: {
+    b?: {
+      c: string;
     };
   } | null;
 }
 
-const fooBar: FooBar = {
-  foo: null,
+const abc: ABC = {
+  a: null,
 };
 
-const final = ep.get(fooBar, proxy => proxy.foo.bar, { baz: 'baz' });
+const b = ep.get(abc, proxy => proxy.a.b, { c: 'c' });
 
-console.log(final);
+console.log(b);
