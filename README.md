@@ -1,3 +1,3 @@
 # existential-proxy
 
-**Type safe existential property access / null propagation using ES6 proxies**
+**Type safe existential property access using ES6 proxies**
