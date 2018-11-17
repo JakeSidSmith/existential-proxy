@@ -23,12 +23,12 @@ export function get<T extends object, R, D>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue: D
-): Exclude<R, undefined | null> | D;
+): R extends undefined | null ? Exclude<R, undefined | null> | D : R;
 export function get<T extends object, R, D>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
   defaultValue?: D
-): Exclude<R, undefined | null> | D {
+): any {
   let currentValue: any = input;
 
   const handlers = {
