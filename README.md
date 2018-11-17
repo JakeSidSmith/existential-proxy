@@ -14,3 +14,11 @@ Although designed with TypeScript in mind, existential-proxy works perfectly wel
 
 Although this library currently only offers the ability to `get` values from a nested object, I intend to add the ability to `set` or `update` (with a function) nested values in an immutable way. This is something that optional chaining would not necessarily provide.
 
+## Installation
+
+Install existential-proxy with NPM (`-S` will automatically add this to your `package.json`):
+
+```shell
+npm i existential-proxy -S
+```
+
