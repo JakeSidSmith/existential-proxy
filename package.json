@@ -9,6 +9,7 @@
     "example": "examples"
   },
   "scripts": {
+    "prepublishOnly": "./scripts/dist",
     "dist": "./scripts/dist",
     "prettier": "prettier --write '@(src|examples|tests|types)/**/*.ts?(x)'",
     "lint": "tslint --project tsconfig.json '@(src|examples|tests|types)/**/*.ts?(x)'",
