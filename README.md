@@ -10,6 +10,8 @@ This library was created for use with TypeScript to give sensible types when acc
 
 Although designed with TypeScript in mind, existential-proxy works perfectly well with JavaScript.
 
+Unlike destructuring with default values existential-proxy allows access through values that may be `undefined` or `null` without specifying default values for each level, and allows specifying defaults even what the value may be `null`.
+
 ### Future plans
 
 Although this library currently only offers the ability to `get` values from a nested object, I intend to add the ability to `set` or `update` (with a function) nested values in an immutable way. This is something that optional chaining would not necessarily provide.
