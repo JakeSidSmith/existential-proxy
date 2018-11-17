@@ -1,6 +1,6 @@
 // tslint:disable:no-console
 
-import { get } from '../src';
+import * as ep from '../src';
 
 interface FooBar {
   foo: {
@@ -14,6 +14,6 @@ const fooBar: FooBar = {
   foo: null,
 };
 
-const final = get(fooBar, proxy => proxy.foo.bar, { baz: 'baz' });
+const final = ep.get(fooBar, proxy => proxy.foo.bar, { baz: 'baz' });
 
 console.log(final);
