@@ -1,7 +1,7 @@
 {
   "name": "existential-proxy",
   "version": "0.0.0",
-  "description": "Type safe, functional, immutable, null propagation / existential property access using ES6 proxies",
+  "description": "Type safe existential property access / null propagation using ES6 proxies",
   "main": "dist/index.ts",
   "directories": {
     "example": "examples"
