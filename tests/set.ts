@@ -8,7 +8,7 @@ describe('set', () => {
       } | null;
     };
     a: {
-      b: 'b';
+      b: string;
     };
   }
 
