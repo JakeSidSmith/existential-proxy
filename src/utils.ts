@@ -1,12 +1,12 @@
+import { MATCHES_INT } from './constants';
+
 export function setIn(input: any, keys: ReadonlyArray<string>, newValue: any) {
   if (!keys.length) {
     return newValue;
   }
 
   const [firstKey, ...restKeys] = keys;
-  const key = Number.isFinite(parseFloat(firstKey))
-    ? parseFloat(firstKey)
-    : firstKey;
+  const key = MATCHES_INT.test(firstKey) ? parseFloat(firstKey) : firstKey;
   let copy: any;
 
   if (input === null || typeof input === 'undefined') {
