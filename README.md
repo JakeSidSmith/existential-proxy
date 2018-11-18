@@ -111,4 +111,6 @@ const numKey: NumKey = {};
 
 // Will create an array when trying to access the `0` key
 ep.set(numKey, (proxy) => proxy.a[0], 'hello'); // { a: ['hello'] }:
+// Will still create an array when trying to access the `0` key
+ep.set(numKey, (proxy) => proxy.a['0'], 'hello'); // { a: ['hello'] }:
 ```
