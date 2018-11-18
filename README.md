@@ -6,15 +6,17 @@
 
 ## About
 
+This library gives you the ability to `get`, `set`, or `update` (with an update function) values nested within an object who's keys may be nullable (`undefined` or `null`), without mutating the original input, or having to worry about checking for values' existence.
+
 [Optional chaining](https://github.com/tc39/proposal-optional-chaining) in JavaScript / TypeScript is not yet finalized, and so we need a way to safely access nested values that may or may not exist.
 
 This library was created for use with TypeScript to give sensible types when accessing nullable nested values without having to specify the types yourself.
 
 Although designed with TypeScript in mind, existential-proxy works perfectly well with JavaScript.
 
-Unlike destructuring with default values existential-proxy allows access through values that may be `undefined` or `null` without specifying default values for each level, and allows specifying defaults even what the value may be `null`.
+Unlike destructuring with default values existential-proxy allows access through values that may be `undefined` or `null` without specifying default values for each level, and allows specifying defaults even when the value may be `null`.
 
-Additionally, unlike (some) alternatives that allow access to nested properties this library also allows setting values inside a nested object in an immutable way (returning a copy of the input with updated values as necessary).
+Additionally, unlike (some) alternatives that allow access to nested properties this library also allows setting or updating values inside a nested object in an immutable way (returning a copy of the input with updated values as necessary).
 
 ### Future plans
 
