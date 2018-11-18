@@ -4,7 +4,7 @@ import { setIn } from './utils';
 export function update<T extends object, R>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
-  newValue: (value: R) => R
+  updater: (value: R) => R
 ): T {
   const keys: string[] = [];
   let currentValue: any = input;
@@ -26,5 +26,5 @@ export function update<T extends object, R>(
 
   callback(proxy);
 
-  return setIn(input, keys, newValue);
+  return setIn(input, keys, updater(currentValue));
 }
