@@ -125,4 +125,32 @@ describe('update', () => {
     expect(result4[0]![0]).toBe(newValue4);
     expect(result4).toEqual([[newValue4]]);
   });
+
+  it('should ignore mutations to the original value', () => {
+    const toMutate: FooBar = {
+      foo: {
+        bar: {
+          baz: 'baz',
+        },
+      },
+      a: {
+        b: 'b',
+      },
+    };
+
+    const newValue1 = { bar: { baz: 'hello' } };
+    const result1 = ep.update(
+      toMutate,
+      proxy => proxy.foo,
+      foo => {
+        if (foo) {
+          foo.bar = null;
+        }
+
+        return newValue1;
+      }
+    );
+
+    expect(result1).toEqual({ ...obj1, foo: newValue1 });
+  });
 });
