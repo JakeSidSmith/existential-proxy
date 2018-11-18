@@ -38,15 +38,23 @@ describe('set', () => {
   interface NumKey {
     a?: {
       0: {
-        b?: {
+        b: {
           0: string;
           1: string;
-        };
+        } | null;
       };
     };
   }
 
-  const numKey: NumKey = {};
+  const numKey1: NumKey = {};
+
+  const numKey2: NumKey = {
+    a: {
+      0: {
+        b: null,
+      },
+    },
+  };
 
   it('replaces the initial object', () => {
     const newValue1 = {};
@@ -140,12 +148,20 @@ describe('set', () => {
   });
 
   it('should create an arrays for keys that when parsed to numbers are finite', () => {
-    const result1 = ep.set(numKey, proxy => proxy.a[0].b[0], 'hello');
+    const result1 = ep.set(numKey1, proxy => proxy.a[0].b[0], 'hello');
 
     expect(result1).toEqual({ a: [{ b: ['hello'] }] });
 
-    const result2 = ep.set(numKey, proxy => proxy.a[0].b[1], 'hello');
+    const result2 = ep.set(numKey1, proxy => proxy.a[0].b[1], 'hello');
 
     expect(result2).toEqual({ a: [{ b: [undefined, 'hello'] }] });
+
+    const result3 = ep.set(numKey2, proxy => proxy.a[0].b[0], 'hello');
+
+    expect(result3).toEqual({ a: { 0: { b: ['hello'] } } });
+
+    const result4 = ep.set(numKey2, proxy => proxy.a[0].b[1], 'hello');
+
+    expect(result4).toEqual({ a: { 0: { b: [undefined, 'hello'] } } });
   });
 });
