@@ -15,7 +15,8 @@
     "lint": "tslint --project tsconfig.json '@(src|examples|tests|types)/**/*.ts?(x)'",
     "type-check": "tsc --noEmit --project tsconfig.json",
     "tests": "jest",
-    "test": "npm run type-check && npm run lint && npm run tests -- --runInBand --coverage"
+    "test": "npm run type-check && npm run lint && npm run tests -- --runInBand --coverage",
+    "examples": "ts-node examples/index.ts"
   },
   "repository": {
     "type": "git",
@@ -54,6 +55,7 @@
     "jest": "^23.6.0",
     "prettier": "^1.15.1",
     "ts-jest": "^23.10.4",
+    "ts-node": "^7.0.1",
     "tslint": "^5.11.0",
     "tslint-config-prettier": "^1.15.0",
     "tslint-eslint-rules": "^5.4.0",
