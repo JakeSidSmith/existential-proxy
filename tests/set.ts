@@ -39,10 +39,10 @@ describe('set', () => {
     a?: {
       0: {
         b?: {
-          0: string
-        }
-      }
-    }
+          0: string;
+        };
+      };
+    };
   }
 
   const numKey: NumKey = {};
@@ -86,14 +86,14 @@ describe('set', () => {
     expect(result2).toEqual({ ...obj1, foo: { ...obj1.foo, bar: newValue2 } });
 
     const newValue3 = ['hello'];
-    const result3 = ep.set(arr1, (proxy) => proxy[0], newValue3);
+    const result3 = ep.set(arr1, proxy => proxy[0], newValue3);
 
     expect(result3).not.toBe(arr1);
     expect(result3[0]).toBe(newValue3);
     expect(result3).toEqual([newValue3]);
 
     const newValue4 = 'hello again';
-    const result4 = ep.set(arr1, (proxy) => proxy[0][0], newValue4);
+    const result4 = ep.set(arr1, proxy => proxy[0][0], newValue4);
 
     expect(result4).not.toBe(arr1);
     expect(result4[0]![0]).toBe(newValue4);
@@ -124,14 +124,14 @@ describe('set', () => {
     expect(result2).toEqual({ ...obj2, foo: { ...obj2.foo, bar: newValue2 } });
 
     const newValue3 = ['hello'];
-    const result3 = ep.set(arr2, (proxy) => proxy[0], newValue3);
+    const result3 = ep.set(arr2, proxy => proxy[0], newValue3);
 
     expect(result3).not.toBe(arr2);
     expect(result3[0]).toBe(newValue3);
-    expect(result3).toEqual([newValue3])
+    expect(result3).toEqual([newValue3]);
 
     const newValue4 = 'hello again';
-    const result4 = ep.set(arr2, (proxy) => proxy[0][0], newValue4);
+    const result4 = ep.set(arr2, proxy => proxy[0][0], newValue4);
 
     expect(result4).not.toBe(arr2);
     expect(result4[0]![0]).toBe(newValue4);
@@ -141,6 +141,6 @@ describe('set', () => {
   it('should create an arrays for keys that when parsed to numbers are finite', () => {
     const result1 = ep.set(numKey, proxy => proxy.a[0].b[0], 'hello');
 
-    expect(result1).toEqual({a: [{b: ['hello']}]})
+    expect(result1).toEqual({ a: [{ b: ['hello'] }] });
   });
 });
