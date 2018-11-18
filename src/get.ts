@@ -1,22 +1,4 @@
-const MAGIC_PROXY_SYMBOL = Symbol('Magic proxy symbol');
-
-export interface AccessProxy<T> {
-  [MAGIC_PROXY_SYMBOL]: T;
-}
-
-export interface WithProxyArray<T, U> extends ReadonlyArray<WithProxy<T | U>> {}
-
-export type WithProxyObject<T, U> = { [P in keyof T]-?: WithProxy<T[P] | U> };
-
-export type WithProxy<
-  T,
-  U = T extends undefined | null ? undefined : never,
-  S = Exclude<T, undefined | null>
-> = S extends object
-  ? WithProxyObject<T, U> & AccessProxy<T>
-  : S extends ReadonlyArray<infer V>
-  ? WithProxyArray<V, U> & AccessProxy<T>
-  : U | T & AccessProxy<T>;
+import { WithProxy } from './types';
 
 export function get<T extends object, R, D extends undefined | never | void>(
   input: T,
@@ -36,7 +18,7 @@ export function get<T extends object, R, D>(
   let currentValue: any = input;
 
   const handlers = {
-    get(value: T, key: keyof T): object {
+    get<S>(value: S, key: keyof S): object {
       currentValue = value[key];
 
       if (currentValue && typeof currentValue === 'object') {

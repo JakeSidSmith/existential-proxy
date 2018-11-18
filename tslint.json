@@ -6,7 +6,7 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "space-before-function-paren": [2, "always"],
+    "variable-name": [true, "allow-leading-underscore", "ban-keywords"],
     "strict-type-predicates": true,
 
     "object-literal-sort-keys": false,
