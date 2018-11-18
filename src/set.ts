@@ -30,8 +30,8 @@ export function set<T extends object, R>(
   const keys: string[] = [];
 
   const handlers = {
-    get<S extends object>(_value: S, key: keyof S): object {
-      keys.push(key as string);
+    get(_value: any, key: string): object {
+      keys.push(key);
 
       return new Proxy({}, handlers);
     },
