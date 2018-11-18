@@ -1,6 +1,6 @@
 {
   "name": "existential-proxy",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Type safe existential property access using ES6 proxies",
   "main": "dist/index.js",
   "module": "es/index.js",
