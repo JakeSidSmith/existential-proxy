@@ -5,8 +5,8 @@ describe('index', () => {
     const keys = Object.keys(index) as ReadonlyArray<keyof typeof index>;
 
     expect(keys).toEqual(['get', 'set', 'update']);
-    keys.forEach((key) => {
+    keys.forEach(key => {
       expect(typeof index[key]).toBe('function');
-    })
+    });
   });
 });
