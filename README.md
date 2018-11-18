@@ -38,7 +38,7 @@ I'd recommend importing `* as` so that you can easily tell where the functions a
 import * as ep from 'existential-proxy';
 ```
 
-Almost of the examples below will use the following types / object.
+Almost all of the examples below will use the following types / object.
 
 ```typescript
 // Here's an example object type
