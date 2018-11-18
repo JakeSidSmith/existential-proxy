@@ -20,6 +20,8 @@ Additionally, unlike (some) alternatives that allow access to nested properties 
 
 Although this library currently only offers the ability to `get` values from a nested object, and `set` values inside a nested object, I intend to add the ability to `update` (with a function) nested values in an immutable way. This is something that optional chaining would not necessarily provide.
 
+Additionally, I may add a function to create a selector, much like [reselect](https://github.com/reduxjs/reselect), to allow transforming values only when changed, but without the need to null check nested values.
+
 ## Installation
 
 Install existential-proxy with NPM (`-S` will automatically add this to your `package.json`):
