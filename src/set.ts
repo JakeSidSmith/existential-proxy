@@ -30,19 +30,14 @@ export function set<T extends object, R>(
   const keys: string[] = [];
 
   const handlers = {
-    get<S extends object>(value: S, key: keyof S): object {
-      const currentValue: any = value[key];
+    get<S extends object>(_value: S, key: keyof S): object {
       keys.push(key as string);
-
-      if (currentValue && typeof currentValue === 'object') {
-        return new Proxy(currentValue, handlers);
-      }
 
       return new Proxy({}, handlers);
     },
   };
 
-  const proxy = new Proxy(input, handlers) as WithProxy<T>;
+  const proxy = new Proxy({}, handlers) as WithProxy<T>;
 
   callback(proxy);
 
