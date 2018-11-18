@@ -35,6 +35,18 @@ describe('set', () => {
 
   const arr2: Arr = [];
 
+  interface NumKey {
+    a?: {
+      0: {
+        b?: {
+          0: string
+        }
+      }
+    }
+  }
+
+  const numKey: NumKey = {};
+
   it('replaces the initial object', () => {
     const newValue1 = {};
     const result1 = ep.set(obj1, proxy => proxy, newValue1);
@@ -124,5 +136,11 @@ describe('set', () => {
     expect(result4).not.toBe(arr2);
     expect(result4[0]![0]).toBe(newValue4);
     expect(result4).toEqual([[newValue4]]);
+  });
+
+  it('should create an arrays for keys that when parsed to numbers are finite', () => {
+    const result1 = ep.set(numKey, proxy => proxy.a[0].b[0], 'hello');
+
+    expect(result1).toEqual({a: [{b: ['hello']}]})
   });
 });
