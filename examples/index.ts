@@ -27,6 +27,6 @@ interface NumKey {
 const numKey: NumKey = {};
 
 // Will create an array when trying to access the `0` key
-const numKeyResult = ep.set(numKey, (proxy) => proxy.a[0], 'hello'); // { a: ['hello'] }:
+const numKeyResult = ep.set(numKey, proxy => proxy.a[0], 'hello'); // { a: ['hello'] }:
 
 console.log(numKeyResult);
