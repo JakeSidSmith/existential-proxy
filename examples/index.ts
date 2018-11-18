@@ -30,3 +30,13 @@ const numKey: NumKey = {};
 const numKeyResult = ep.set(numKey, proxy => proxy.a[0], 'hello'); // { a: ['hello'] }:
 
 console.log(numKeyResult);
+
+const updated = ep.update(abc, proxy => proxy.a.b.c, value => {
+  if (typeof value === 'string') {
+    return 'already existed';
+  }
+
+  return 'was not defined';
+});
+
+console.log(updated);
