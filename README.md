@@ -97,6 +97,35 @@ ep.set(abc, (proxy) => proxy.a, { b: { c: 'hello' } }); // { a: { b: { c: 'hello
 ep.set(abc, (proxy) => proxy.a.b, { c: 'hello' }); // { a: { b: { c: 'hello' } } }: ABC
 ```
 
+### Update
+
+The `update` function takes 3 arguments:
+
+1. The object from which you wish to retrieve a value
+2. A callback that will be passed a proxy to this object
+3. An updater function that will be passed the existing value at the returned proxy key, and returns a new value
+
+```typescript
+// Will return the returned value (essentially replacing the input object)
+ep.update(abc, (proxy) => proxy, () => ({ a: { b: { c: 'hello' } } })); // { a: { b: { c: 'hello' } } }: ABC
+// Will return a copy of the `abc` object with a new `a` value if it is not defined
+ep.update(abc, (proxy) => proxy.a, (a) => {
+  if (!a) {
+    return { b: { c: 'hello' } };
+  }
+
+  return a;
+}); // { a: { b: { c: 'hello' } } }: ABC
+// Will return a copy of the `abc` object with a new `b` value if it is not defined
+ep.update(abc, (proxy) => proxy.a.b, (b) => {
+  if (!b) {
+    return { c: 'hello' };
+  }
+
+  return b;
+}); // { a: { b: { c: 'hello' } } }: ABC
+```
+
 ## Important notes
 
 When using `set` and `update` you should note that:
