@@ -2,7 +2,7 @@ import { WithProxy } from './types';
 
 export function setIn<T extends object>(
   input: T,
-  keys: ReadonlyArray<string | number>,
+  keys: ReadonlyArray<string>,
   newValue: any
 ) {
   if (!keys.length) {
@@ -13,7 +13,7 @@ export function setIn<T extends object>(
   const [firstKey, ...restKeys] = keys;
 
   if (copy[firstKey] === null || typeof copy[firstKey] === 'undefined') {
-    copy[firstKey] = typeof firstKey === 'number' ? [] : {};
+    copy[firstKey] = Number.isFinite(parseFloat(firstKey)) ? [] : {};
   }
 
   copy[firstKey] = setIn(copy[firstKey], restKeys, newValue);
@@ -26,12 +26,14 @@ export function set<T extends object, R>(
   callback: (input: WithProxy<T>) => WithProxy<R>,
   newValue: R
 ): T {
-  const keys: Array<string | number> = [];
+  const keys: string[] = [];
 
   const handlers = {
     get<S extends object>(value: S, key: keyof S): object {
+      console.log(key, typeof key); // tslint:disable-line
+
       const currentValue: any = value[key];
-      keys.push(key as string | number);
+      keys.push(key as string);
 
       if (currentValue && typeof currentValue === 'object') {
         return new Proxy(currentValue, handlers);
