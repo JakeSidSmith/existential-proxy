@@ -18,7 +18,7 @@ export function get<T extends object, R, D>(
   let currentValue: any = input;
 
   const handlers = {
-    get(value: T, key: keyof T): object {
+    get<S>(value: S, key: keyof S): object {
       currentValue = value[key];
 
       if (currentValue && typeof currentValue === 'object') {
