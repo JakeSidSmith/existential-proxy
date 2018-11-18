@@ -1,4 +1,4 @@
-import { set } from '../src';
+import * as ep from '../src';
 
 describe('set', () => {
   interface FooBar {
@@ -37,13 +37,13 @@ describe('set', () => {
 
   it('replaces the initial object', () => {
     const newValue1 = {};
-    const result1 = set(obj1, proxy => proxy, newValue1);
+    const result1 = ep.set(obj1, proxy => proxy, newValue1);
 
     expect(result1).not.toBe(obj1);
     expect(result1).toBe(newValue1);
 
     const newValue2 = [['hello']];
-    const result2 = set(arr1, proxy => proxy, newValue2);
+    const result2 = ep.set(arr1, proxy => proxy, newValue2);
 
     expect(result2).not.toBe(arr1);
     expect(result2).toBe(newValue2);
@@ -51,7 +51,7 @@ describe('set', () => {
 
   it('sets override a value inside an object that already exists', () => {
     const newValue1 = { bar: { baz: 'hello' } };
-    const result1 = set(obj1, proxy => proxy.foo, newValue1);
+    const result1 = ep.set(obj1, proxy => proxy.foo, newValue1);
 
     expect(result1).not.toBe(obj1);
     expect(result1.foo).not.toBe(obj1.foo);
@@ -62,7 +62,7 @@ describe('set', () => {
     expect(result1).toEqual({ ...obj1, foo: newValue1 });
 
     const newValue2 = { baz: 'hello again' };
-    const result2 = set(obj1, proxy => proxy.foo.bar, newValue2);
+    const result2 = ep.set(obj1, proxy => proxy.foo.bar, newValue2);
 
     expect(result2).not.toBe(obj1);
     expect(result2.foo).not.toBe(obj1.foo);
@@ -74,14 +74,14 @@ describe('set', () => {
     expect(result2).toEqual({ ...obj1, foo: { ...obj1.foo, bar: newValue2 } });
 
     const newValue3 = ['hello'];
-    const result3 = set(arr1, (proxy) => proxy[0], newValue3);
+    const result3 = ep.set(arr1, (proxy) => proxy[0], newValue3);
 
     expect(result3).not.toBe(arr1);
     expect(result3[0]).toBe(newValue3);
     expect(result3).toEqual([newValue3]);
 
     const newValue4 = 'hello again';
-    const result4 = set(arr1, (proxy) => proxy[0][0], newValue4);
+    const result4 = ep.set(arr1, (proxy) => proxy[0][0], newValue4);
 
     expect(result4).not.toBe(arr1);
     expect(result4[0]![0]).toBe(newValue4);
@@ -90,7 +90,7 @@ describe('set', () => {
 
   it("should set a value inside an object that doesn't exist", () => {
     const newValue1 = { bar: { baz: 'hello' } };
-    const result1 = set(obj2, proxy => proxy.foo, newValue1);
+    const result1 = ep.set(obj2, proxy => proxy.foo, newValue1);
 
     expect(result1).not.toBe(obj2);
     expect(result1.foo).not.toBe(obj2.foo);
@@ -101,7 +101,7 @@ describe('set', () => {
     expect(result1).toEqual({ ...obj2, foo: newValue1 });
 
     const newValue2 = { baz: 'hello again' };
-    const result2 = set(obj2, proxy => proxy.foo.bar, newValue2);
+    const result2 = ep.set(obj2, proxy => proxy.foo.bar, newValue2);
 
     expect(result2).not.toBe(obj2);
     expect(result2.foo).not.toBe(obj2.foo);
@@ -112,14 +112,14 @@ describe('set', () => {
     expect(result2).toEqual({ ...obj2, foo: { ...obj2.foo, bar: newValue2 } });
 
     const newValue3 = ['hello'];
-    const result3 = set(arr2, (proxy) => proxy[0], newValue3);
+    const result3 = ep.set(arr2, (proxy) => proxy[0], newValue3);
 
     expect(result3).not.toBe(arr2);
     expect(result3[0]).toBe(newValue3);
     expect(result3).toEqual([newValue3])
 
     const newValue4 = 'hello again';
-    const result4 = set(arr2, (proxy) => proxy[0][0], newValue4);
+    const result4 = ep.set(arr2, (proxy) => proxy[0][0], newValue4);
 
     expect(result4).not.toBe(arr2);
     expect(result4[0]![0]).toBe(newValue4);
