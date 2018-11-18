@@ -40,6 +40,7 @@ describe('set', () => {
       0: {
         b?: {
           0: string;
+          1: string;
         };
       };
     };
@@ -142,5 +143,9 @@ describe('set', () => {
     const result1 = ep.set(numKey, proxy => proxy.a[0].b[0], 'hello');
 
     expect(result1).toEqual({ a: [{ b: ['hello'] }] });
+
+    const result2 = ep.set(numKey, proxy => proxy.a[0].b[1], 'hello');
+
+    expect(result2).toEqual({ a: [{ b: [undefined, 'hello'] }] });
   });
 });
