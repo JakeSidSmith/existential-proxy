@@ -153,4 +153,23 @@ describe('update', () => {
 
     expect(result1).toEqual({ ...obj1, foo: newValue1 });
   });
+
+  it('should allow mapping on existing arrays', () => {
+    const arr: Arr = [['hello']];
+    const result1 = ep.update(
+      arr,
+      proxy => proxy[0],
+      value => {
+        if (value) {
+          return value.map(item =>
+            typeof item === 'string' ? `${item} mapped` : item
+          );
+        }
+
+        return [];
+      }
+    );
+
+    expect(result1).toEqual([['hello mapped']]);
+  });
 });
