@@ -86,10 +86,7 @@ The `set` function takes 3 arguments:
 2. A callback that will be passed a proxy to this object
 3. The new value to be set at the returned proxy key
 
-Some important things to note:
 
-1. The return type will always match the input type - if keys are nullable, they will still be nullable even if set by this function
-2. Keys that when cast to a number are a valid integer (including negative values) will produce arrays if the parent object is undefined or null. This is because there is no way to detect if trying to access values from an array or object if the target is undefined or null (all keys; `.a`, `[0]`, are only available as strings when using a proxy).
 
 ```typescript
 // Will return the provided value (essentially replacing the input object)
@@ -100,7 +97,16 @@ ep.set(abc, (proxy) => proxy.a, { b: { c: 'hello' } } }); // { a: { b: { c: 'hel
 ep.set(abc, (proxy) => proxy.a.b, { c: 'hello' } }); // { a: { b: { c: 'hello' } } }: ABC
 ```
 
-This library's `set` function may not give you the output you'd expect if you are using integers as keys in objects.
+## Important notes
+
+When using `set` and `update` you should note that:
+
+1. The return type will always match the input type - if keys are nullable, they will still be nullable even if set by one of these functions
+2. Keys that when cast to a number are a valid integer (including negative values) will produce arrays if the parent object is undefined or null. This is because there is no way to detect if trying to access values from an array or object if the target is undefined or null (all keys; `.a`, `[0]`, are only available as strings when using a proxy).
+
+## Example of potentially unintended array creation
+
+This library's `set` and `update` functions may not give you the output you'd expect if you are using integers as keys in objects.
 
 ```typescript
 interface NumKey {
