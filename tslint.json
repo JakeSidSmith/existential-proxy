@@ -6,7 +6,6 @@
     "tslint-config-prettier"
   ],
   "rules": {
-    "space-before-function-paren": [2, "always"],
     "strict-type-predicates": true,
 
     "object-literal-sort-keys": false,
