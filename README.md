@@ -89,12 +89,12 @@ The `set` function takes 3 arguments:
 
 
 ```typescript
-// Will return the provided value (essentially replacing the input object)
+// Will return the returned value (essentially replacing the input object)
 ep.set(abc, (proxy) => proxy, { a: { b: { c: 'hello' } } }); // { a: { b: { c: 'hello' } } }: ABC
 // Will return a copy of the `abc` object with a new `a` value
-ep.set(abc, (proxy) => proxy.a, { b: { c: 'hello' } } }); // { a: { b: { c: 'hello' } } }: ABC
+ep.set(abc, (proxy) => proxy.a, { b: { c: 'hello' } }); // { a: { b: { c: 'hello' } } }: ABC
 // Will return a copy of the `abc` object with a new `b` value
-ep.set(abc, (proxy) => proxy.a.b, { c: 'hello' } }); // { a: { b: { c: 'hello' } } }: ABC
+ep.set(abc, (proxy) => proxy.a.b, { c: 'hello' }); // { a: { b: { c: 'hello' } } }: ABC
 ```
 
 ## Important notes
