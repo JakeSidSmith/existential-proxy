@@ -63,6 +63,9 @@
     "collectCoverageFrom": [
       "src/**/*.(js|jsx|ts|tsx)"
     ],
+    "coveragePathIgnorePatterns": [
+      "types.ts"
+    ],
     "setupFiles": [
       "<rootDir>/tests/helpers/setup.ts"
     ],
