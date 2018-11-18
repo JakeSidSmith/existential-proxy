@@ -26,7 +26,5 @@ export function update<T extends object, R>(
 
   callback(proxy);
 
-  callback(proxy);
-
   return setIn(input, keys, newValue);
 }
