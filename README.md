@@ -131,7 +131,7 @@ ep.update(abc, (proxy) => proxy.a.b, (b) => {
 When using `set` and `update` you should note that:
 
 1. The return type will always match the input type - if keys are nullable, they will still be nullable even if set by one of these functions
-2. Keys that when cast to a number are a valid integer (including negative values) will produce arrays if the parent object is undefined or null. This is because there is no way to detect if trying to access values from an array or object if the target is undefined or null (all keys; `.a`, `[0]`, are only available as strings when using a proxy).
+2. Keys that when cast to a number are a valid integer (including negative values) will produce arrays if the parent object is `undefined` or `null`. This is because there is no way to detect if trying to access values from an array or object if the target is not already an array or object (all keys; `.a`, `[0]`, are only available as strings when using a proxy).
 
 ## Example of potentially unintended array creation
 
