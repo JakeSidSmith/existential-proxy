@@ -1,22 +1,23 @@
 import { WithProxy } from './types';
 
-export function setIn<T extends object>(
-  input: T,
-  keys: ReadonlyArray<string>,
-  newValue: any
-) {
+export function setIn(input: any, keys: ReadonlyArray<string>, newValue: any) {
   if (!keys.length) {
     return newValue;
   }
 
-  const copy = Array.isArray(input) ? [...input] : { ...(input as any) };
   const [firstKey, ...restKeys] = keys;
+  const key = Number.isFinite(parseFloat(firstKey))
+    ? parseFloat(firstKey)
+    : firstKey;
+  let copy: any;
 
-  if (copy[firstKey] === null || typeof copy[firstKey] === 'undefined') {
-    copy[firstKey] = Number.isFinite(parseFloat(firstKey)) ? [] : {};
+  if (input === null || typeof input === 'undefined') {
+    copy = typeof key === 'number' ? [] : {};
+  } else {
+    copy = Array.isArray(input) ? [...input] : { ...(input as any) };
   }
 
-  copy[firstKey] = setIn(copy[firstKey], restKeys, newValue);
+  copy[key] = setIn(copy[key], restKeys, newValue);
 
   return copy;
 }
