@@ -30,8 +30,6 @@ export function set<T extends object, R>(
 
   const handlers = {
     get<S extends object>(value: S, key: keyof S): object {
-      console.log(key, typeof key); // tslint:disable-line
-
       const currentValue: any = value[key];
       keys.push(key as string);
 
