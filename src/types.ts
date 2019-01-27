@@ -17,3 +17,9 @@ export type WithProxy<
   : S extends ReadonlyArray<infer V>
   ? WithProxyArray<V, U> & AccessProxy<T>
   : U | T & AccessProxy<T>;
+
+export type Option<T> = { type: "None" } | { type: "Some", val: T };
+
+export interface Layer {name: string, type: "object" | "array"}
+
+export interface Recurse<T> { keys: ReadonlyArray<string>, val: T }

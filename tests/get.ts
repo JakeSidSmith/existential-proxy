@@ -50,7 +50,7 @@ describe('get', () => {
   });
 
   it('should return the default value when the value does not exist', () => {
-    const root = ep.get(obj2, proxy => proxy, { foo: null });
+    const root = ep.get(obj2, proxy => proxy, { foo: undefined });
     const foo = ep.get(obj2, proxy => proxy.foo, { bar: null });
     const bar = ep.get(obj2, proxy => proxy.foo.bar, { baz: 'def' });
     const baz = ep.get(obj2, proxy => proxy.foo.bar.baz, 'def');
@@ -62,7 +62,7 @@ describe('get', () => {
   });
 
   it('should return the default value when the value is null', () => {
-    const root = ep.get(obj3, proxy => proxy, { foo: null });
+    const root = ep.get(obj3, proxy => proxy, { foo: undefined });
     const foo = ep.get(obj3, proxy => proxy.foo, { bar: { baz: 'def' } });
     const bar = ep.get(obj3, proxy => proxy.foo.bar, { baz: 'def' });
     const baz = ep.get(obj3, proxy => proxy.foo.bar.baz, 'def');
@@ -72,4 +72,9 @@ describe('get', () => {
     expect(bar).toEqual({ baz: 'def' });
     expect(baz).toBe('def');
   });
+
+  it('should not return anything when the symbol as a string is used to request something', () => {
+    const sut = ep.get(obj1, proxy => (proxy as any)['Magic proxy symbol']);
+    expect(sut).toEqual(undefined);
+  })
 });

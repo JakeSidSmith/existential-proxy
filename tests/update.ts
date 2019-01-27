@@ -161,7 +161,7 @@ describe('update', () => {
       proxy => proxy[0],
       value => {
         if (value) {
-          return value.map(item =>
+          return value.map((item: any) =>
             typeof item === 'string' ? `${item} mapped` : item
           );
         }

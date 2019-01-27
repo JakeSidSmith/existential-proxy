@@ -1,4 +1,5 @@
-import { WithProxy } from './types';
+import { MAGIC_PROXY_SYMBOL } from './constants';
+import { AccessProxy, Recurse, WithProxy } from './types';
 import { setIn } from './utils';
 
 export function update<T extends object, R>(
@@ -6,25 +7,27 @@ export function update<T extends object, R>(
   callback: (input: WithProxy<T>) => WithProxy<R>,
   updater: (value: R) => R
 ): T {
-  const keys: string[] = [];
-  let currentValue: any = input;
-
   const handlers = {
-    get(value: any, key: string): object {
-      keys.push(key as string);
-      currentValue = value[key];
+    get(value: Recurse<any>, key: string | symbol): object {
+      if (typeof key === 'symbol' && key === MAGIC_PROXY_SYMBOL) {
+        return value;
+      }
+      const keyString = key as string;
+      const currentValue = value.val[key];
 
+      const keys = value.keys.concat([keyString]);
       if (currentValue && typeof currentValue === 'object') {
-        return new Proxy(currentValue, handlers);
+        return new Proxy({ keys, val: currentValue }, handlers);
       }
 
-      return new Proxy({}, handlers);
+      return new Proxy({ keys, val: {} }, handlers);
     },
   };
 
-  const proxy = new Proxy(input, handlers) as WithProxy<T>;
+  const proxy = new Proxy({ keys: [], val: input }, handlers) as WithProxy<T>;
 
-  callback(proxy);
+  const mapped = callback(proxy);
+  const unwrapped = (mapped as any as AccessProxy<Recurse<R>>)[MAGIC_PROXY_SYMBOL];
 
-  return setIn(input, keys, updater(currentValue));
+  return setIn(input, unwrapped.keys, updater(unwrapped.val)) as T;
 }
