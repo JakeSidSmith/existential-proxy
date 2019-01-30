@@ -1,43 +1,37 @@
-import { WithProxy } from './types';
+import { MAGIC_PROXY_SYMBOL } from './constants';
+import { AccessProxy, Option, WithProxy } from './types';
 
-export function get<T extends object, R, D extends undefined | never | void>(
+export function get<T extends object, R>(
   input: T,
   callback: (input: WithProxy<T>) => WithProxy<R>,
-  defaultValue?: D
-): R;
-export function get<T extends object, R, D>(
-  input: T,
-  callback: (input: WithProxy<T>) => WithProxy<R>,
-  defaultValue: D
-): R extends undefined | null ? Exclude<R, undefined | null | never> | D : R;
-export function get<T extends object, R, D>(
-  input: T,
-  callback: (input: WithProxy<T>) => WithProxy<R>,
-  defaultValue?: D
-): any {
-  let currentValue: any = input;
-
+  defaultValue?: R
+): R {
   const handlers = {
-    get(value: any, key: string): object {
-      currentValue = value[key];
-
-      if (currentValue && typeof currentValue === 'object') {
-        return new Proxy(currentValue, handlers);
+    get(value: Option<any>, key: string | symbol): any {
+      if (typeof key === 'symbol' && key === MAGIC_PROXY_SYMBOL) {
+        return value;
+      }
+      if (value.type === "Some") {
+        const currentValue = value.val[key];
+        if (currentValue) {
+          return new Proxy({ type: "Some", val: currentValue }, handlers);
+        }
       }
 
-      return new Proxy({}, handlers);
+      return new Proxy({ type: "None" }, handlers);
     },
   };
 
-  const proxy = new Proxy(input, handlers) as WithProxy<T>;
+  const proxy = new Proxy({ type: "Some", val: input }, handlers) as WithProxy<T>;
 
-  callback(proxy);
+  const mapped = callback(proxy);
 
-  if (typeof currentValue === 'undefined' || currentValue === null) {
-    if (typeof defaultValue !== 'undefined') {
-      return defaultValue;
-    }
+  const unwrapped = (mapped as any as AccessProxy<Option<R>>)[MAGIC_PROXY_SYMBOL];
+
+  switch (unwrapped.type) {
+    case "Some":
+      return unwrapped.val;
+    default:
+      return defaultValue as R;
   }
-
-  return currentValue;
 }
